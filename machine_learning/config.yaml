@@ -1,0 +1,42 @@
+run_settings:
+  validate : True                        # if the model should be validated
+  num_workers_train : 4                      # num of workers for the train set dataloader
+  num_workers_test : 4                      # num of workers for the validation set dataloader
+
+io_settings:
+  train_dataset_path :  '/home/frederikwr/Documents/PyWakeSimulations/res512_256_turbopark3/train'
+  test_dataset_path :  '/home/frederikwr/Documents/PyWakeSimulations/res512_256_turbopark3/test'
+  saved_models_dir : './saved_models'                     # path to the save directory for model saving
+  save_epochs: 100                       # number of epochs between model saves
+  pretrained_model: ""                  # leave empty string if not using pretrained model
+
+hyperparameters:
+  epochs : 1000                           # number of epochs
+  start_lr : 1e-4                        # initial learning rate
+  scheduler : "ReduceLROnPlateau"
+  lr_decay_stop: 1000                    # decay the learning rate up until this epoch
+  batch_size: 4                       # number of graphs per batch
+  norm_type: 'relative_wake_deficit'                 # type of normalization to use, either 'mean_std' or 'min_max'
+
+# model architecture settings
+model_settings:
+  input_layers : 1                  # dimension of the latent node features (N)
+  latent_space_layers : 2                  # dimension of the latent edge features (N)
+  output_layers : 1                 # dimension of the latent globals features (N)
+
+  encoder_settings:
+    node_enc_mlp_layers: [256, 256]     # list of hidden layer dimensions for the node encoder MLP
+    edge_enc_mlp_layers: [256, 256]     # list of hidden layer dimensions for the edge encoder MLP
+    glob_enc_mlp_layers: [256, 256]     # list of hidden layer dimensions for the globals encoder MLP
+    dropout: 0.0                        # dropout value to set in the encoder
+
+  processor_settings:
+    mp_type: 'GEN'                      # choose the message-passing architecture, choice between GAT, GEN, GINE 
+    num_mp_steps: 4                     # number of message-passing steps (L)
+    dropout: 0.0                        # dropout value to set in the processor
+    mp_aggr: 'softmax'                  # for the GEN architecture, choose from ["softmax", "powermean", "add", "mean", 'max']
+
+  decoder_settings:
+    node_dec_mlp_layers: [256, 256]     # list of hidden layer dimensions for the node decoder MLP
+    glob_dec_mlp_layers: [256, 256]     # list of hidden layer dimensions for the globals encoder MLP
+    dropout: 0.0                        # dropout value to set in the decoder

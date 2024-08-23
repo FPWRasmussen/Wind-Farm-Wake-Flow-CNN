@@ -1,0 +1,49 @@
+inflow_settings:
+  V_min : 4                                         # Minimum simulated wind speed [m/s]
+  V_max : 25                                        # Maximum simulated wind speed [m/s]
+  TI_min : 0                                    # Minimum simulated turbulence intensity (I = u'/U) [-]
+  TI_max : 0.3                                      # Minimum simulated turbulence intensity (I = u'/U) [-]
+  WD_min : 270
+  WD_max : 270
+
+wind_farm_geometry_settings:
+  max_generation_attempts : 100
+  turbine_amount_min : 3
+  turbine_amount_max : 1000
+  turbine_spacing_min : 6
+  turbine_spacing_max : 12
+  turbine_position_noise_min : 0
+  turbine_position_noise_max : 0.5
+  polygon_avg_radii_min : 10
+  polygon_avg_radii_max : 100
+  polygon_irregularities_min : 0
+  polygon_irregularities_max : 0.5
+  polygon_spikinessess_min : 0
+  polygon_spikinessess_max : 0.5
+  polygon_num_vertices_min : 4
+  polygon_num_vertices_max : 15
+
+flow_model_settings:
+  propagation_method : "PropagateDownwind"
+  wake_deficit_model : 'NOJDeficit'
+  superposition_model : 'SquaredSum'
+  blockage_deficit_model : 'None'
+  turbulence_model : 'STF2005TurbulenceModel'
+  flow_height_min : 0
+  flow_height_max : 2
+
+pywake_results_settings:
+  dataset_path : '/home/frederikwr/Documents/PyWakeSimulations/res512_256_bastankhah3'
+  load_pregenerated_farms : False
+  num_simulations : 500
+  train_dataset_ratio : 80
+  test_dataset_ratio : 20
+  x_res : 512                                       # 
+  y_res : 256
+  x_range_min : -256
+  x_range_max : 768
+  y_range_min : -256
+  y_range_max : 256
+
+graph_generation:
+  graph_type : "fully_connected" # option: delaunay, fully_connected
